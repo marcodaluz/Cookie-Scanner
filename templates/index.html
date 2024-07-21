@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Analysis Tool - Detailed Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-c5H6PnB5ekZvNiDJ3wLVSE7RF9MYruG3JO+KPyFbRNgA4JLQPz0m3Q4c99wLZPtnU/4y/hpJirjyEa8Bp+ng1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: #2c3e50;
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: #34495e;
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.8em;
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1em;
+        }
+
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 1em;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #2c3e50;
+        }
+
+        nav ul li .cta {
+            background-color: #3498db;
+            color: white;
+            padding: 0.8em 1.5em;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li .cta:hover {
+            background-color: #2980b9;
+        }
+
+        main {
+            flex: 1;
+            text-align: center;
+            padding: 2em;
+        }
+
+        .hero h1 {
+            margin-bottom: 0.5em;
+            font-size: 2.5em;
+            color: #ecf0f1;
+        }
+
+        .hero p {
+            margin-bottom: 1em;
+            opacity: 0.8;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 1em;
+            justify-content: center;
+            margin-bottom: 2em;
+        }
+
+        input,
+        button {
+            padding: 0.8em;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .cookie-table th,
+        .cookie-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .cookie-table th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .cookie-table tr {
+            background-color: #3498db;
+            transition: background-color 0.3s ease;
+        }
+
+        .cookie-table tr:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: auto;
+        }
+
+        .download-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 0.8em 1.5em;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #218c53;
+        }
+
+        .additional-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
+            margin-top: 1em;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .info-item::before {
+            content: '\2713'; /* Unicode character for checkmark */
+            margin-right: 0.3em;
+            color: #edf0ee;
+        }
+
+
+        .safe-card {
+            background-color: #27ae60;
+            color: white;
+            padding: 0.8em 1.5em;
+            border-radius: 4px;
+        }
+        
+        .unsafe-card {
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.8em 1.5em;
+            border-radius: 4px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo">CookieScanner</a>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">All Sites</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#" class="cta">Sign Up Free</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Cookie Scanner</h1>
+            <p>Use our instant cookie scanner to check cookies on your website
+                and <br>generate a detailed cookie report in seconds</p>
+            
+            <div class="form-group">
+                <input type="text" id="domainInput" placeholder="Enter URL, Host Name, or IP Address">
+                <button type="button" onclick="fetchCookieDetails()">Run Test</button>
+                <button type="button" onclick="viewDetailedReport()">View Detailed Report</button>
+            </div>
+            <div id="siteSafetyCard" class="site-safety-card">
+               
+            </div>
+            
+            <div id="cookieTable"></div>
+            <div class="additional-info">
+                <div class="info-item">
+                    <i class="fas fa-check-circle"></i> Free
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-check-circle"></i> Instant Report
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-check-circle"></i> No Email Required
+                </div>
+            </div>
+        </div>
+
+   
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CookieScanner. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function fetchCookieDetails() {
+            var domain = document.getElementById('domainInput').value;
+            fetch('/check_cookie', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'domain=' + encodeURIComponent(domain)
+            })
+            .then(response => response.json())
+            .then(data => {
+                buildTable(data);
+        
+                
+                var isSafe = data.every(cookie => cookie.httpOnly === 'yes' || cookie.secure === 'yes');
+                updateSiteSafetyCard(isSafe);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateSiteSafetyCard(isSafe) {
+            var siteSafetyCard = document.getElementById('siteSafetyCard');
+        
+            if (isSafe) {
+               
+                siteSafetyCard.innerHTML = '<div class="safe-card">The website is secure!</div>';
+            } else {
+                
+                siteSafetyCard.innerHTML = '<div class="unsafe-card">The website may not be secure.</div>';
+            }
+        }
+        
+        
+        function buildTable(data) {
+            var table = '<table class="cookie-table">';
+            table += '<tr><th>Name</th><th>Value</th><th>Domain</th><th>Path</th><th>Expires</th><th>Secure</th><th>HttpOnly</th></tr>';
+            data.forEach(cookie => {
+                var expires = cookie.expires;
+                if (expires !== 'N/A') {
+                    var date = new Date(expires * 1000); 
+                    expires = date.toLocaleString(); 
+                }
+        
+                table += `<tr><td>${cookie.name}</td><td>${cookie.value}</td><td>${cookie.domain}</td><td>${cookie.path}</td><td>${expires}</td><td>${cookie.secure}</td><td>${cookie.httpOnly}</td></tr>`;
+            });
+            table += '</table>';
+            document.getElementById('cookieTable').innerHTML = table;
+        }
+        function viewDetailedReport() {
+            var domain = document.getElementById('domainInput').value;
+            window.open('/detailed_report?domain=' + encodeURIComponent(domain), '_blank');
+        }
+    </script>
+</body>
+
+</html>
